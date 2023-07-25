@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('types', function (Blueprint $table) {
             $table->id();
 
-            $table -> string('tipo', 50);
+            $table -> string('nome', 50);
             $table -> boolean('di_gruppo', 1);
 
             $table->timestamps();

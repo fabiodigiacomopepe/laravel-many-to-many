@@ -22,6 +22,12 @@ use App\Http\Controllers\Guest\PageController as PageController;
 
 Route::get('/index', [PageController::class, 'index']) -> name('index');
 
+Route::get('/project/create', [PageController::class, 'create']) -> name('auth.create');
+
+Route :: post('/project', [PageController::class, 'store']) -> name('auth.store');
+
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -35,3 +41,5 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/show/{id}', [PageController::class, 'show'])-> name('auth.show');
+
+

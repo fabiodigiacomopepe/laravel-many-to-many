@@ -12,7 +12,7 @@
                 No
             @endif
         </li>
-        <li>Tipo: {{ $project->type->tipo }}</li>
+        <li>Tipo: {{ $project->type->nome }}</li>
     </ul>
     <h4 class="mx-4">Tecnologie:</h4>
     <ul class="m-2">
