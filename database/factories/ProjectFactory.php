@@ -17,7 +17,7 @@ class ProjectFactory extends Factory
     public function definition()
     {
         return [
-            'nome' => fake() -> sentence(3),
+            'nome' => fake() -> words(3, true),
             'framework' => fake() -> randomElement(['Laravel', 'Vue', 'Angular', 'React']),
             'versione' => fake() -> randomFloat(1, 10, 20),
             'deployato' => fake() -> numberBetween(0, 1)

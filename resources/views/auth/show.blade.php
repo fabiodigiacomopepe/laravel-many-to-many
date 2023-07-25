@@ -12,12 +12,14 @@
                 No
             @endif
         </li>
-        <li>Tipo:
-            @foreach ($types as $type)
-                @if ($type->id == $project->type_id)
-                    {{ $type->tipo }}
-                @endif
-            @endforeach
-        </li>
+        <li>Tipo: {{ $project->type->tipo }}</li>
+    </ul>
+    <h4 class="mx-4">Tecnologie:</h4>
+    <ul class="m-2">
+        @foreach ($project->technologies as $technology)
+            <li>
+                {{ $technology->nome }}
+            </li>
+        @endforeach
     </ul>
 @endsection

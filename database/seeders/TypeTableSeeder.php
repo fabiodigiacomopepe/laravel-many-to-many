@@ -16,6 +16,6 @@ class TypeTableSeeder extends Seeder
      */
     public function run()
     {
-        $types = Type :: factory() -> count(10) -> create();
+        $types = Type :: factory() -> count(5) -> create();
     }
 }

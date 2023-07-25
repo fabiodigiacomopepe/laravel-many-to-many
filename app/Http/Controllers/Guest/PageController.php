@@ -20,8 +20,7 @@ class PageController extends Controller
     public function show($id) {
 
         $project = Project::findOrFail($id);
-        $types = Type::all();
 
-        return view('auth.show', compact('project', 'types'));
+        return view('auth.show', compact('project'));
     }
 }
