@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+    <a class="btn btn-primary m-3" href="{{ route('auth.edit', $project->id) }}">
+        MODIFICA
+    </a>
+    <br>
+
     <ul class="list-unstyled m-4">
         <li>Nome: {{ $project['nome'] }}</li>
         <li>Framework: {{ $project['framework'] }}</li>

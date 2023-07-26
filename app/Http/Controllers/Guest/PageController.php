@@ -18,13 +18,6 @@ class PageController extends Controller
         return view('index', compact('projects'));
     }
 
-    public function show($id) {
-
-        $project = Project::findOrFail($id);
-
-        return view('auth.show', compact('project'));
-    }
-
     public function create() {
 
         $technologies = Technology :: all();
@@ -41,6 +34,43 @@ class PageController extends Controller
         $project = Project :: create($data);
 
         $project->technologies()->attach($data['technologies']);
+
+        return redirect() -> route("auth.show", $project -> id);
+    }
+
+    public function show($id) {
+
+        $project = Project::findOrFail($id);
+
+        return view('auth.show', compact('project'));
+    }
+
+    public function edit($id) {
+
+        $technologies = Technology :: all();
+
+        $types = Type :: all();
+
+        $project = Project :: findOrFail($id);
+
+        return view('auth.edit', compact('project', 'technologies', 'types'));
+    }
+
+    public function update(Request $request, $id) {
+
+        $data = $request -> all();
+
+        $project = Project :: findOrfail($id);
+
+        $project -> update($data);
+
+        if (array_key_exists('technologies', $data)) {
+
+            $project -> technologies() -> sync($data['technologies']);
+        } else {
+
+            $project -> technologies() -> detach();
+        }
 
         return redirect() -> route("auth.show", $project -> id);
     }
