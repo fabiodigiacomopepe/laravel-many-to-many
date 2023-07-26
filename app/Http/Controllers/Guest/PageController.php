@@ -58,7 +58,10 @@ class PageController extends Controller
 
     public function update(Request $request, $id) {
 
-        $data = $request -> all();
+        $data = $request -> validate(
+            $this -> getValidationRules(),
+            $this -> getValidationMessages()
+        );
 
         $project = Project :: findOrfail($id);
 
@@ -73,5 +76,26 @@ class PageController extends Controller
         }
 
         return redirect() -> route("auth.show", $project -> id);
+    }
+
+    private function getValidationRules() {
+
+        return [
+            'nome' => 'required|string',
+            'framework' => 'required|string',
+            'versione' => 'required|string',
+
+            'technologies' => 'required|array',
+        ];
+    }
+
+    private function getValidationMessages() {
+
+        return [
+            'nome.required' => 'Il nome è necessario',
+            'framework.required' => 'Il framework è necessario',
+            'versione.required' => 'La versione è necessaria',
+            'technologies.required' => 'Almeno una tecnologia è necessaria',
+        ];
     }
 }
