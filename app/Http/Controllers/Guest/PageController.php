@@ -27,40 +27,20 @@ class PageController extends Controller
 
     public function create() {
 
-        return view('auth.create');
+        $technologies = Technology :: all();
+
+        $types = Type :: all();
+
+        return view('auth.create', compact('technologies', 'types'));
     }
 
     public function store(Request $request) {
 
-        $projectData = [
-            "nome" => $request->input('nome_project'),
-            "framework" => $request->input('framework'),
-            "versione" => $request->input('versione'),
-            "deployato" => $request->input('deployato'),
-        ];
+        $data = $request -> all();
 
-        $typeData = [
-            "nome" => $request->input('nome_type'),
-            "di_gruppo" => $request->input('di_gruppo'),
-        ];
+        $project = Project :: create($data);
 
-        $technologyData = [
-            "nome" => $request->input('nome_technology'),
-            "descrizione" => $request->input('descrizione'),
-        ];
-
-        $type = Type::firstOrCreate(['nome' => $typeData['nome']], $typeData);
-        $projectData['type_id'] = $type->id;
-
-        $technology = Technology::firstOrCreate(['nome' => $technologyData['nome']], $technologyData);
-
-        $project = Project::create($projectData);
-
-        $project->type()->associate($type);
-
-        $project->technologies()->attach($technology->id);
-
-        $project->save();
+        $project->technologies()->attach($data['technologies']);
 
         return redirect() -> route("auth.show", $project -> id);
     }

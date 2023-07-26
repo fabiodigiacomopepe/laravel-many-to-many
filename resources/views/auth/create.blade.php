@@ -9,9 +9,9 @@
 
             @csrf
 
-            <label for="nome_project">Nome</label>
+            <label for="nome">Nome</label>
             <br>
-            <input type="text" name="nome_project">
+            <input type="text" name="nome">
             <br>
 
             <label for="framework">Framework</label>
@@ -26,33 +26,37 @@
 
             <label for="deployato">Deployato</label>
             <br>
-            <input type="number" name="deployato">
+            <select name="deployato" id="deployato">
+                <option value="1">
+                    Sì
+                </option>
+                <option value="0">
+                    No
+                </option>
+            </select>
             <br>
 
-            <label for="type_id">Type_ID</label>
+            <label for="type_id">Tipo</label>
             <br>
-            <input type="number" name="type_id">
-            <br>
-
-            <label for="nome_type">Tipo</label>
-            <br>
-            <input type="text" name="nome_type">
-            <br>
-
-            <label for="di_gruppo">Di gruppo</label>
-            <br>
-            <input type="number" name="di_gruppo">
+            <select name="type_id" id="type_id">
+                @foreach ($types as $type)
+                    <option value="{{ $type->id }}">
+                        {{ $type->nome }}
+                    </option>
+                @endforeach
+            </select>
             <br>
 
-            <label for="nome_technology">Tecnologia</label>
             <br>
-            <input type="text" name="nome_technology">
-            <br>
+            <h5>Tecnologia</h5>
+            @foreach ($technologies as $technology)
+                <div class="form-check mx-auto" style="max-width: 150px">
+                    <input class="form-check-input bg-dark" type="checkbox" value="{{ $technology->id }}"
+                        name="technologies[]" id="technology{{ $technology->id }}">
 
-            <label for="descrizione">Descrizione</label>
-            <br>
-            <input type="text" name="descrizione">
-            <br>
+                    <label class="form-check-label" for="technology{{ $technology->id }}">{{ $technology->nome }}</label>
+                </div>
+            @endforeach
 
             <input class="my-3" type="submit" value="CREATE">
         </form>
