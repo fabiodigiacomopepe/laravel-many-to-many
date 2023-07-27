@@ -17,7 +17,7 @@ class TypeFactory extends Factory
     public function definition()
     {
         return [
-            'nome' => fake() -> randomElement(['Web App', 'Single Page App', 'Sito vetrina']),
+            'nome' => fake() -> unique() -> randomElement(['Web App', 'Single Page App', 'Sito vetrina']),
             'di_gruppo' => fake() -> numberBetween(0, 1)
         ];
     }

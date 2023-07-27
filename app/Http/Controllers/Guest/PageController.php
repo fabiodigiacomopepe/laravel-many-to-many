@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Guest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\Project;
 use App\Models\Type;
 use App\Models\Technology;
@@ -30,6 +32,9 @@ class PageController extends Controller
     public function store(Request $request) {
 
         $data = $request -> all();
+
+        $img_path = Storage::put('uploads', $data['main_picture']);
+        $data['main_picture'] = $img_path;
 
         $project = Project :: create($data);
 
@@ -65,6 +70,18 @@ class PageController extends Controller
 
         $project = Project :: findOrfail($id);
 
+        if (!array_key_exists("main_picture", $data))
+            $data['main_picture'] = $project -> main_picture;
+        else {
+            if ($project -> main_picture) {
+
+                $oldImgPath = $project -> main_picture;
+                Storage::delete($oldImgPath);
+            }
+
+            $data['main_picture'] = Storage::put('uploads', $data['main_picture']);
+        }
+
         $project -> update($data);
 
         if (array_key_exists('technologies', $data)) {
@@ -78,6 +95,22 @@ class PageController extends Controller
         return redirect() -> route("auth.show", $project -> id);
     }
 
+    public function deletePicture($id) {
+
+        $project = Project :: findOrFail($id);
+
+        if ($project -> main_picture) {
+
+            $oldImgPath = $project -> main_picture;
+            Storage::delete($oldImgPath);
+        }
+
+        $project -> main_picture = null;
+        $project -> save();
+
+        return redirect() -> route("auth.show", $project -> id);
+    }
+
     private function getValidationRules() {
 
         return [
@@ -86,6 +119,8 @@ class PageController extends Controller
             'versione' => 'required|string',
 
             'technologies' => 'required|array',
+
+            "main_picture" => "nullable|file|image|max:2048"
         ];
     }
 

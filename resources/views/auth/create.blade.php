@@ -5,9 +5,14 @@
         <h1>
             Nuovo progetto
         </h1>
-        <form method="POST" action="{{ route('auth.store') }}">
+        <form method="POST" action="{{ route('auth.store') }}" enctype="multipart/form-data">
 
             @csrf
+
+            <label for="main_picture">Immagine</label>
+            <br>
+            <input type="file" name="main_picture" id="main_picture">
+            <br>
 
             <label for="nome">Nome</label>
             <br>

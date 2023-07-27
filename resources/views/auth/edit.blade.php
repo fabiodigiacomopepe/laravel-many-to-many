@@ -5,10 +5,20 @@
         <h3>
             MODIFICA PROGETTO
         </h3>
-        <form method="POST" action="{{ route('auth.update', $project->id) }}">
+        <form method="POST" action="{{ route('auth.update', $project->id) }}" enctype="multipart/form-data">
 
             @csrf
             @method('PUT')
+
+            @if ($project->main_picture)
+                <img src="{{ asset('storage/' . $project->main_picture) }}" width="200px">
+                <br>
+            @endif
+
+            <label for="main_picture">Immagine</label>
+            <br>
+            <input type="file" name="main_picture" id="main_picture">
+            <br>
 
             <label for="nome">Nome</label>
             <br>

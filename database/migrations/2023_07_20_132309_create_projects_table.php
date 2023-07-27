@@ -20,6 +20,7 @@ return new class extends Migration
             $table -> string('framework', 30);
             $table -> string('versione', 10);
             $table -> boolean('deployato', 1);
+            $table -> string('main_picture') -> nullable();
 
             $table->timestamps();
         });

@@ -14,7 +14,8 @@ class Project extends Model
         "framework",
         "versione",
         "deployato",
-        "type_id"
+        "type_id",
+        "main_picture"
     ];
 
     public function type() {

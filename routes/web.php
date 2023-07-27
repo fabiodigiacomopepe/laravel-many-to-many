@@ -32,6 +32,8 @@ Route :: get('/edit/{id}', [PageController::class, 'edit'])-> name('auth.edit');
 
 Route :: put('/update/{id}', [PageController::class, 'update'])-> name('auth.update');
 
+Route :: delete('/project/{id}/picture', [PageController :: class, 'deletePicture'])-> name('auth.picture.delete');
+
 
 
 
